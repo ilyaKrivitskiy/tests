@@ -2,14 +2,16 @@ package main
 
 import "fmt"
 
-var p = fmt.Printf
-
 func main() {
-	var arr = []int{}
-	arr = []int{2, 5, 3, 6, 1, 7, 9, 4, 8}
-	var res int = 0
-	for i, value := range arr {
-		res += value * (i + 1)
+	var arr = []int{4, 5, 2, 7, 1, 6, 3}
+	fmt.Println("Before bubble-sort: ", arr)
+	for i := 0; i < len(arr); i++ {
+		for j := i; j < len(arr); j++ {
+			if arr[i] > arr[j] {
+				arr[i], arr[j] = arr[j], arr[i]
+			}
+		}
 	}
-	p("Result is %d\n", res)
+	print("-----------------------------------------------\n")
+	fmt.Println("After bubble-sort: ", arr)
 }
