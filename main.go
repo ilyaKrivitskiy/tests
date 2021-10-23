@@ -1,17 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"strings"
 
-func main() {
-	var arr = []int{4, 5, 2, 7, 1, 6, 3}
-	fmt.Println("Before bubble-sort: ", arr)
-	for i := 0; i < len(arr); i++ {
-		for j := i; j < len(arr); j++ {
-			if arr[i] > arr[j] {
-				arr[i], arr[j] = arr[j], arr[i]
-			}
+	"golang.org/x/tour/wc"
+)
+
+func WordCount(s string) map[string]int {
+	m := make(map[string]int)
+	lex := strings.Split(s, " ")
+	for i := range lex {
+		_, ok := m[lex[i]]
+		if ok {
+			m[lex[i]]++
+		} else {
+			m[lex[i]] = 1
 		}
 	}
-	print("-----------------------------------------------\n")
-	fmt.Println("After bubble-sort: ", arr)
+	return m
+}
+
+func main() {
+	wc.Test(WordCount)
 }
