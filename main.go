@@ -1,20 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
-func do(i interface{}) {
-	switch v := i.(type) {
-	case int:
-		fmt.Printf("Twice %v is %v\n", v, v*2)
-	case string:
-		fmt.Printf("%q is %v bytes long\n", v, len(v))
-	default:
-		fmt.Printf("I don't know about type %T!\n", v)
+type IPAddr [4]byte
+
+// TODO: Add a "String() string" method to IPAddr.
+func (t IPAddr) String() string {
+	res := ""
+	dot := "."
+	for i := range t {
+		if i != len(t)-1 {
+			res += strconv.Itoa(int(t[i])) + dot
+			continue
+		}
+		res += strconv.Itoa(int(t[i]))
 	}
+	return res
 }
 
 func main() {
-	do(21)
-	do("hello")
-	do(true)
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
 }
